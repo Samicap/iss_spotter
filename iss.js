@@ -20,7 +20,7 @@ const fetchMyIP = function(callback) {
 };
 
 const fetchCoordsByIP = function(ip, callback) {
-  request(`https://ipvigilante.com/json/${ip}`, (error, response, body) => {
+  request(`https://freegeoip.app/json/${ip}`, (error, response, body) => { //use a different API which works
     if (error) {
       callback(error, null);
       return;
@@ -30,7 +30,8 @@ const fetchCoordsByIP = function(ip, callback) {
       callback(Error(`Status Code ${response.statusCode} when fetching coordinates for IP: ${body}`), null);
     }
 
-    const { latitude, longitude } = JSON.parse(body).data;
+    const queryResult = JSON.parse(body);
+    const { latitude, longitude } = JSON.parse(body);
 
     callback(null, {latitude, longitude});
   });
